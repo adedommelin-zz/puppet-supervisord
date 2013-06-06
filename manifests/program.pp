@@ -46,10 +46,9 @@ define supervisord::program (
   $environment              = '',
   $serverurl                = 'AUTO'
 ) {
-
   file { "${name}.conf":
     ensure  => 'present',
-    content => template('supervisord_app.conf.erb'),
+    content => template('supervisord/program.conf.erb'),
     path    => '/etc/supervisor/conf.d',
     owner   => 'root',
     group   => 'root',
