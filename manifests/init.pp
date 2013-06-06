@@ -21,13 +21,16 @@ class supervisord {
 
   case $::operatingsystem {
     centos: {
-      $supervisord_config = '/etc/supervisord.conf'
+      $supervisord_config   = '/etc/supervisord.conf'
+      $supervisord_service  = 'supervisord'
     }
     redhat: {
-      $supervisord_config = '/etc/supervisord.conf'
+      $supervisord_config   = '/etc/supervisord.conf'
+      $supervisord_service  = 'supervisord'
     }
     debian: {
-      $supervisord_config = '/etc/supervisor/supervisord.conf'
+      $supervisord_config   = '/etc/supervisor/supervisord.conf'
+      $supervisord_service  = 'supervisor'
     }
     default: {
       fail("Module ${module_name} is not supported on ${::operatingsystem}")
@@ -42,6 +45,7 @@ class supervisord {
 
   file { '/etc/supervisord':
     ensure  => 'directory',
+    require => Package['supervisor']
   } -> file { '/etc/supervisord/conf.d':
     ensure  => 'directory'
   } -> file { $supervisord_config:
@@ -49,9 +53,10 @@ class supervisord {
     owner   => 'root',
     group   => 'root',
     mode    => '0644'
-  } -> service { 'supervisor':
+  } -> service { $supervisord_service:
     ensure  => 'running',
-    enable  => true,
-    require => Package['supervisor']
+    enable  => true
   }
+
+
 }
