@@ -1,7 +1,3 @@
-# just to be able to test my module using puppet apply
-class { 'supervisord': }
-
-
 # == Class: supervisord
 #
 # Manage supervisord
