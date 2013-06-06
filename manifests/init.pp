@@ -45,7 +45,7 @@ class supervisord {
   } -> file { '/etc/supervisord/conf.d':
     ensure  => 'directory'
   } -> file { $supervisord_config:
-    source  => 'puppet:///supervisord/supervisord.conf',
+    source  => 'puppet:///modules/supervisord/supervisord.conf',
     owner   => 'root',
     group   => 'root',
     mode    => '0644'
