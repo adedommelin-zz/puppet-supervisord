@@ -1,5 +1,20 @@
+# == Definition: supervisord::program
 #
-# Definition: supervisord::program
+# === Examples
+#
+# supervisord::program { 'node_app':
+#   command   => '/usr/bin/node server.js',
+#   user      => 'node-user',
+#   directory => '/var/www/node.foo.bar/'
+# }
+#
+# === Authors
+#
+# Alexandre De Dommelin <adedommelin@tuxz.net>
+#
+# === Copyright
+#
+# Copyright 2013 Alexandre De Dommelin
 #
 define supervisord::program (
   $name,
