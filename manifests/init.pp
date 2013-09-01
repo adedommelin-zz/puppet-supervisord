@@ -32,6 +32,10 @@ class supervisord {
       $supervisord_config   = '/etc/supervisor/supervisord.conf'
       $supervisord_service  = 'supervisor'
     }
+    ubuntu: {
+      $supervisord_config   = '/etc/supervisor/supervisord.conf'
+      $supervisord_service  = 'supervisor'
+    }
     default: {
       fail("Module ${module_name} is not supported on ${::operatingsystem}")
     }
@@ -43,10 +47,10 @@ class supervisord {
     mode  => '0644'
   }
 
-  file { '/etc/supervisord':
+  file { '/etc/supervisor':
     ensure  => 'directory',
     require => Package['supervisor']
-  } -> file { '/etc/supervisord/conf.d':
+  } -> file { '/etc/supervisor/conf.d':
     ensure  => 'directory'
   } -> file { $supervisord_config:
     source  => 'puppet:///modules/supervisord/supervisord.conf',
@@ -57,6 +61,4 @@ class supervisord {
     ensure  => 'running',
     enable  => true
   }
-
-
 }

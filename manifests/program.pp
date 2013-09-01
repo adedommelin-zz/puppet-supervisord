@@ -17,7 +17,6 @@
 # Copyright 2013 Alexandre De Dommelin
 #
 define supervisord::program (
-  $name,
   $command,
   $process_name             = '%(program_name)s',
   $numprocs                 = '1',
@@ -46,10 +45,9 @@ define supervisord::program (
   $environment              = '',
   $serverurl                = 'AUTO'
 ) {
-  file { "${name}.conf":
+  file { "/etc/supervisor/conf.d/${name}.conf":
     ensure  => 'present',
     content => template('supervisord/program.conf.erb'),
-    path    => '/etc/supervisor/conf.d',
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
