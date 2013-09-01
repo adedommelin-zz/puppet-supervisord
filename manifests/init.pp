@@ -32,6 +32,10 @@ class supervisord {
       $supervisord_config   = '/etc/supervisor/supervisord.conf'
       $supervisord_service  = 'supervisor'
     }
+    ubuntu: {
+      $supervisord_config   = '/etc/supervisor/supervisord.conf'
+      $supervisord_service  = 'supervisor'
+    }
     default: {
       fail("Module ${module_name} is not supported on ${::operatingsystem}")
     }
