@@ -47,10 +47,10 @@ class supervisord {
     mode  => '0644'
   }
 
-  file { '/etc/supervisord':
+  file { '/etc/supervisor':
     ensure  => 'directory',
     require => Package['supervisor']
-  } -> file { '/etc/supervisord/conf.d':
+  } -> file { '/etc/supervisor/conf.d':
     ensure  => 'directory'
   } -> file { $supervisord_config:
     source  => 'puppet:///modules/supervisord/supervisord.conf',
@@ -61,6 +61,4 @@ class supervisord {
     ensure  => 'running',
     enable  => true
   }
-
-
 }
