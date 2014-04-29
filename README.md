@@ -8,6 +8,7 @@ A module to:
 
 1. install supervisord daemon
 2. create configurations for programs you want to manage with supervisord
+3. optionally handle multiple related programs with groups in supervisord.
 
 
 Installation
@@ -24,10 +25,21 @@ Example
     node 'node.foo.bar' {
       class { 'supervisord': }
 
-      supervisord::program { 'node_app':
+      supervisord::program { 'node_app1':
         command   => '/usr/bin/node server.js',
         user      => 'node-user',
         directory => '/var/www/node.foo.bar/'
+      }
+
+      supervisord::program { 'node_app2':
+        command   => '/usr/bin/node server2.js',
+        user      => 'node-user',
+        directory => '/var/www/node.foo.bar/'
+      }
+
+      supervisord::group { 'Node Servers':
+        group_name => "node_apps",
+        names => "node_app1,node_app2"
       }
     }
 
